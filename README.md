@@ -29,6 +29,7 @@ aws s3api put-bucket-versioning --bucket project-bedrock-tf-state-alt-soe-025-37
 ```bash
 cd terraform
 terraform init
+terraform plan
 terraform apply
 ```
 
@@ -36,6 +37,7 @@ For kubectl:
 
 ```bash
 aws eks update-kubeconfig --name project-bedrock-cluster --region us-east-1
+kubectl get nodes
 ```
 
 ## Deploy the app

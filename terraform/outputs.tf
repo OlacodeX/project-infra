@@ -1,9 +1,9 @@
 output "cluster_endpoint" {
-  value = ""
+  value = module.eks.cluster_endpoint
 }
 
 output "cluster_name" {
-  value = var.cluster_name
+  value = module.eks.cluster_name
 }
 
 output "region" {
