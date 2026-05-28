@@ -4,7 +4,7 @@ EKS-based deployment of the AWS Retail Store sample app. Infrastructure is in `t
 
 ## What’s in here
 
-- **terraform/** — VPC, EKS (`project-bedrock-cluster`), RDS, DynamoDB, ALB controller, IAM, S3/Lambda, etc.
+- **terraform/** — VPC, EKS (`project-bedrock-cluster`), RDS, DynamoDB, IAM, S3/Lambda, etc.
 - **k8s/** — App manifests in namespace `retail-app`
 - **lambda/** — `bedrock-asset-processor` (S3 upload trigger)
 - **grading.json** — Run `terraform output -json` after apply (not committed until infra exists)
@@ -43,6 +43,7 @@ kubectl get nodes
 ## Deploy the app
 
 ```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/v2_8_2_full.yaml
 kubectl apply -f k8s/
 kubectl get pods -n retail-app
 kubectl get ingress -n retail-app
@@ -50,12 +51,31 @@ kubectl get ingress -n retail-app
 
 Use the ALB address from the ingress when the UI is up.
 
+## Verify observability
+
+```bash
+aws logs describe-log-groups
+kubectl get pods -n amazon-cloudwatch
+```
+
+You should see EKS control-plane log groups and container insights log groups/streams after traffic and pod activity.
+
 ## Grading output
 
 ```bash
 cd terraform
 terraform output -json > ../grading.json
 ```
+
+## Verify serverless asset flow
+
+```bash
+echo "test" > test.txt
+aws s3 cp test.txt s3://$(cd terraform && terraform output -raw assets_bucket_name)/test.txt
+aws logs describe-log-groups
+```
+
+Confirm CloudWatch logs for `bedrock-asset-processor` include `Image received: test.txt`.
 
 ## CI/CD
 

@@ -17,4 +17,3 @@ output "vpc_id" {
 output "assets_bucket_name" {
   value = var.assets_bucket_name
 }
-
