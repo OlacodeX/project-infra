@@ -20,7 +20,21 @@ module "eks" {
   ]
 
   enable_irsa                              = true
-  enable_cluster_creator_admin_permissions = true
+  enable_cluster_creator_admin_permissions = false
+
+  access_entries = {
+    assessment_user = {
+      principal_arn = "arn:aws:iam::444166849648:user/assessmentUser"
+      policy_associations = {
+        admin = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
+    }
+  }
 
   eks_managed_node_groups = {
     default = {
@@ -34,9 +48,21 @@ module "eks" {
   }
 
   cluster_addons = {
-    coredns                         = {}
-    kube-proxy                      = {}
-    vpc-cni                         = {}
-    amazon-cloudwatch-observability = {}
+    coredns = {
+      resolve_conflicts_on_create = "OVERWRITE"
+      resolve_conflicts_on_update = "OVERWRITE"
+    }
+    kube-proxy = {
+      resolve_conflicts_on_create = "OVERWRITE"
+      resolve_conflicts_on_update = "OVERWRITE"
+    }
+    vpc-cni = {
+      resolve_conflicts_on_create = "OVERWRITE"
+      resolve_conflicts_on_update = "OVERWRITE"
+    }
+    amazon-cloudwatch-observability = {
+      resolve_conflicts_on_create = "OVERWRITE"
+      resolve_conflicts_on_update = "OVERWRITE"
+    }
   }
 }
