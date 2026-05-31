@@ -4,6 +4,6 @@ metadata:
   name: orders-db-config
   namespace: retail-app
 data:
-  DB_HOST: "CHANGEME_RDS_POSTGRES_ENDPOINT" 
+  DB_HOST: "project-bedrock-postgres.ck7w6w04w7k0.us-east-1.rds.amazonaws.com" 
   DB_PORT: "5432"
   DB_NAME: "orders"

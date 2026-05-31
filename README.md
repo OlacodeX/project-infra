@@ -42,12 +42,20 @@ kubectl get nodes
 
 ## Deploy the app
 
+Update `k8s/secrets.yaml`, `k8s/catalog-db-config.yaml`, and `k8s/orders-db-config.yaml` first.
+
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/v2_8_2_full.yaml
-kubectl apply -f k8s/
+kubectl apply --validate=false -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.3/cert-manager.yaml
+curl -L -o v2_8_2_full.yaml https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download/v2.8.2/v2_8_2_full.yaml
+kubectl apply -f v2_8_2_full.yaml
+curl -L -o v2_8_2_ingclass.yaml https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/download/v2.8.2/v2_8_2_ingclass.yaml
+kubectl apply -f v2_8_2_ingclass.yaml
+kubectl apply -R -f k8s/ (or ../k8s/ if not in root folder. e.g if terminal is in terraform folder)
 kubectl get pods -n retail-app
 kubectl get ingress -n retail-app
 ```
+
+Set `--cluster-name=project-bedrock-cluster` in `v2_8_2_full.yaml` before `kubectl apply -f v2_8_2_full.yaml`.
 
 Use the ALB address from the ingress when the UI is up.
 
