@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orders-db-config
+  namespace: retail-app
+data:
+  DB_HOST: "CHANGEME_RDS_POSTGRES_ENDPOINT" 
+  DB_PORT: "5432"
+  DB_NAME: "orders"
