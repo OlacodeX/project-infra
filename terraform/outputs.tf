@@ -11,7 +11,7 @@ output "region" {
 }
 
 output "vpc_id" {
-  value = module.vpc.vpc_id 
+  value = module.vpc.vpc_id
 }
 
 output "assets_bucket_name" {

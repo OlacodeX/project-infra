@@ -19,7 +19,7 @@ module "eks" {
     "scheduler"
   ]
 
-  enable_irsa = true
+  enable_irsa                              = true
   enable_cluster_creator_admin_permissions = true
 
   eks_managed_node_groups = {
@@ -34,9 +34,9 @@ module "eks" {
   }
 
   cluster_addons = {
-    coredns = {}
-    kube-proxy = {}
-    vpc-cni = {}
+    coredns                         = {}
+    kube-proxy                      = {}
+    vpc-cni                         = {}
     amazon-cloudwatch-observability = {}
   }
 }
