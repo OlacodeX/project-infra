@@ -55,13 +55,13 @@ variable "private_subnets" {
 variable "node_instance_type" {
   description = "EKS managed node group instance type"
   type        = string
-  default     = "t3.medium"
+  default     = "t3.small"
 }
 
 variable "node_desired_size" {
   description = "EKS managed node group desired size"
   type        = number
-  default     = 2
+  default     = 1
 }
 
 variable "node_min_size" {
@@ -73,7 +73,7 @@ variable "node_min_size" {
 variable "node_max_size" {
   description = "EKS managed node group max size"
   type        = number
-  default     = 3
+  default     = 2
 }
 
 variable "assets_bucket_name" {
