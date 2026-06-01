@@ -1,9 +1,9 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: catalog-db-config
-  namespace: retail-app
-data: 
-  DB_HOST: "project-bedrock-mysql.ck7w6w04w7k0.us-east-1.rds.amazonaws.com"
-  DB_PORT: "3306"
-  DB_NAME: "catalog"
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalog-db-config
+  namespace: retail-app
+data:
+  DB_ENDPOINT: "project-bedrock-mysql.ck7w6w04w7k0.us-east-1.rds.amazonaws.com:3306"
+  DB_READ_ENDPOINT: "project-bedrock-mysql.ck7w6w04w7k0.us-east-1.rds.amazonaws.com:3306"
+  DB_NAME: "catalog"

@@ -16,6 +16,9 @@ spec:
       containers:
       - name: ui
         image: public.ecr.aws/aws-containers/retail-store-sample-ui:latest
+        envFrom:
+        - configMapRef:
+            name: ui
         ports:
         - containerPort: 8080
 ---
@@ -38,16 +41,16 @@ spec:
       - name: catalog
         image: public.ecr.aws/aws-containers/retail-store-sample-catalog:latest
         env:
-        - name: DB_HOST
+        - name: DB_ENDPOINT
           valueFrom:
             configMapKeyRef:
               name: catalog-db-config
-              key: DB_HOST
-        - name: DB_PORT
+              key: DB_ENDPOINT
+        - name: DB_READ_ENDPOINT
           valueFrom:
             configMapKeyRef:
               name: catalog-db-config
-              key: DB_PORT
+              key: DB_READ_ENDPOINT
         - name: DB_NAME
           valueFrom:
             configMapKeyRef:
